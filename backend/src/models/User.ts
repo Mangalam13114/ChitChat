@@ -4,7 +4,7 @@ export interface IUser extends Document {
   clerkId: string;
   name: string;
   email: string;
-  avatar?: string;
+  avatar: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -17,7 +17,7 @@ const UserSchema = new Schema<IUser>(
       unique: true,
     },
     name: {
-      type: String,
+      type: String,  
       required: true,
       trim: true,
     },
