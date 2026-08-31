@@ -32,6 +32,8 @@ const MessageSchema = new Schema<IMessage>(
 );
 
 // indexes for faster queries
-MessageSchema.index({ chat: 1, createdAt: 1 });
+MessageSchema.index({ chat: 1, createdAt: 1 }); // oldest one first
+// 1 -> asc
+// -1 -> desc
 
 export const Message = mongoose.model("Message", MessageSchema);
