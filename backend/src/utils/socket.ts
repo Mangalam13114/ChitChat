@@ -5,7 +5,6 @@ import { Message } from "../models/Message";
 import { Chat } from "../models/Chat";
 import { User } from "../models/User";
 
-
 // store online users in memory : userId -> socketId
 export const onlineUsers: Map<string, string> = new Map();
 
@@ -105,13 +104,13 @@ export const initializeSocket = (httpServer: HttpServer) => {
     });
 
     // TODO: LATER
-    socket.on("typing", async (data) => {
-      socket.on("disconnect", () => {
-        onlineUsers.delete(userId);
+    socket.on("typing", async (data) => {});
 
-        // notify others
-        socket.broadcast.emit("user-offline", { userId });
-      });
+    socket.on("disconnect", () => {
+      onlineUsers.delete(userId);
+
+      // notify others
+      socket.broadcast.emit("user-offline", { userId });
     });
   });
 
