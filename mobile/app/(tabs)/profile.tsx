@@ -3,7 +3,6 @@ import { View, Text, ScrollView, Pressable } from "react-native";
 
 const ProfileTab = () => {
   const { signOut } = useAuth();
-  
   return (
     <ScrollView className="bg-surface" contentInsetAdjustmentBehavior="automatic">
       <Text className="text-white">Profile Tab</Text>
