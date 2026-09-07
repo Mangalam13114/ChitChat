@@ -1,5 +1,5 @@
 import { Color, useRouter } from "expo-router";
-import { ActivityIndicator, FlatList, Pressable, ScrollView, Text, View } from "react-native";
+import { ActivityIndicator, FlatList, Pressable, Text, View } from "react-native";
 import { useChats } from "../../hooks/useChats";
 import { Ionicons } from "@expo/vector-icons";
 import ChatItem from "../../components/ChatItem";
@@ -8,7 +8,7 @@ import { Chat } from "../../types";
 
 const ChatsTab = () => {
   const router = useRouter();
-  const { data: chats, isLoading, error } = useChats();
+  const { data: chats, isLoading, error, refetch } = useChats();
 
   if (isLoading) {
     return (
@@ -21,7 +21,10 @@ const ChatsTab = () => {
   if (error) {
     return (
       <View className="flex-1 bg-surface items-center justify-center">
-        <Text className="text-red-500">Failed to load Chats</Text>
+        <Text className="text-red-500 text-3xl\">Failed to load Chats</Text>
+        <Pressable onPress={() => refetch()} className="mt-4 px-4 py-2 bg-primary rounded-lg">
+          <Text className="text-foreground">Retry</Text>
+        </Pressable>
       </View>
     );
   }
@@ -38,7 +41,6 @@ const ChatsTab = () => {
     });
   };
 
-  
   return (
     <View className="flex-1 bg-surface">
       <FlatList
