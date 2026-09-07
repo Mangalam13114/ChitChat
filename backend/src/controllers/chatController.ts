@@ -3,11 +3,7 @@ import type { AuthRequest } from "../middleware/auth";
 import { Chat } from "../models/Chat";
 import { Types } from "mongoose";
 
-export async function getChats(
-  req: AuthRequest,
-  res: Response,
-  next: NextFunction,
-) {
+export async function getChats(req: AuthRequest, res: Response, next: NextFunction) {
   try {
     const userId = req.userId;
 
@@ -17,10 +13,7 @@ export async function getChats(
       .sort({ lastMessageAt: -1 });
 
     const formattedChats = chats.map((chat) => {
-      const otherParticipant = chat.participants.find(
-        (p) => p._id.toString() !== userId,
-      );
-      res.json(formattedChats);
+      const otherParticipant = chat.participants.find((p) => p._id.toString() !== userId);
 
       return {
         _id: chat._id,
@@ -30,17 +23,14 @@ export async function getChats(
         createdAt: chat.createdAt,
       };
     });
+    res.json(formattedChats);
   } catch (error) {
     res.status(500);
     next(error);
   }
 }
 
-export async function getOrCreateChat(
-  req: AuthRequest,
-  res: Response,
-  next: NextFunction,
-) {
+export async function getOrCreateChat(req: AuthRequest, res: Response, next: NextFunction) {
   try {
     const userId = req.userId;
     const { participantId } = req.params;
@@ -68,9 +58,7 @@ export async function getOrCreateChat(
       chat = await newChat.populate("participants", "name email avatar");
     }
 
-    const otherParticipant = chat.participants.find(
-      (p) => p._id.toString() !== userId,
-    );
+    const otherParticipant = chat.participants.find((p) => p._id.toString() !== userId);
 
     res.json({
       _id: chat._id,
