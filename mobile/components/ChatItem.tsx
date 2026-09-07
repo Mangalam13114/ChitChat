@@ -48,7 +48,7 @@ const ChatItem = ({ chat, onPress }: { chat: Chat; onPress: () => void }) => {
             >
               {chat.lastMessage?.text || "No messages yet"}
             </Text>
-          )}
+          )}  
         </View>
       </View>
     </Pressable>
