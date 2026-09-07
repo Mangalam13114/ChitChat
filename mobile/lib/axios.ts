@@ -3,7 +3,7 @@ import * as Sentry from "@sentry/react-native";
 import { useAuth } from "@clerk/expo";
 import { useCallback } from "react";
 
-const API_URL = "https://whisper-ijeje.sevalla.app/api";
+const API_URL = "https://chitchat-ked0.onrender.com/api";
 
 // this is the same thing we did with useEffect setup but it's optimized version - it's better!!
 
@@ -47,3 +47,4 @@ export const useApi = () => {
 
   return { api, apiWithAuth };
 };
+
