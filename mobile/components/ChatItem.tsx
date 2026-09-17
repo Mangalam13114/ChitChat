@@ -1,6 +1,7 @@
 import { View, Text, Pressable } from "react-native";
 import { Chat } from "../types";
 import { Image } from "expo-image";
+import { formatDistanceToNow } from "date-fns";
 
 const ChatItem = ({ chat, onPress }: { chat: Chat; onPress: () => void }) => {
   const participant = chat.participant;
@@ -8,10 +9,6 @@ const ChatItem = ({ chat, onPress }: { chat: Chat; onPress: () => void }) => {
   const isOnline = true;
   const isTyping = false;
   const hasUnread = false;
-
-  function formatDistanceToNow(arg0: Date, arg1: { addSuffix: boolean }): import("react").ReactNode {
-    throw new Error("Function not implemented.");
-  }
 
   return (
     <Pressable className="flex-row items-center py-3 active:opacity-70" onPress={onPress}>

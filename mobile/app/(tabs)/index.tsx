@@ -1,10 +1,10 @@
-import { Color, useRouter } from "expo-router";
-import { ActivityIndicator, FlatList, Pressable, Text, View } from "react-native";
-import { useChats } from "../../hooks/useChats";
-import { Ionicons } from "@expo/vector-icons";
 import ChatItem from "../../components/ChatItem";
 import EmptyUI from "../../components/EmptyUI";
+import { useChats } from "../../hooks/useChats";
 import { Chat } from "../../types";
+import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import { ActivityIndicator, FlatList, Pressable, Text, View } from "react-native";
 
 const ChatsTab = () => {
   const router = useRouter();
@@ -59,7 +59,7 @@ const ChatsTab = () => {
             iconColor="#6B6B70"
             iconSize={64}
             buttonLabel="New Chat"
-            onPressButton={() => console.log("pressed")}
+            onPressButton={() => router.push("/new-chat")}
           />
         }
       />
@@ -78,7 +78,7 @@ function Header() {
         <Text className="text-2xl font-bold text-foreground">Chats</Text>
         <Pressable
           className="size-10 bg-primary rounded-full items-center justify-center"
-          // onPress={() => router.push("/new-chat")}
+          onPress={() => router.push("/new-chat")}
         >
           <Ionicons name="create-outline" size={20} color="#0D0D0F" />
         </Pressable>
