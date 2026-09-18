@@ -7,12 +7,14 @@ import { useUsers } from "../../hooks/useUsers";
 import { useGetOrCreateChat } from "../../hooks/useChats";
 import { User } from "../../types";
 import UserItem from "../../components/UserItem";
+import { useSocketStore } from "../../lib/socket";
 
 const NewChatScreen = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const { data: allUsers, isLoading } = useUsers();
   const { mutate: getOrCreateChat, isPending: isCreatingChat } = useGetOrCreateChat();
+  const { onlineUsers } = useSocketStore();
 
   // client-side filtering
   const users = allUsers?.filter((u) => {
@@ -59,7 +61,6 @@ const NewChatScreen = () => {
           </View>
 
           {/* SEARCH BAR */}
-
           <View className="px-5 pt-3 pb-2 bg-surface">
             <View className="flex-row items-center bg-surface-card rounded-full px-3 py-1.5 gap-2 border border-surface-light">
               <Ionicons name="search" size={18} color="#6B6B70" />
@@ -75,7 +76,6 @@ const NewChatScreen = () => {
           </View>
 
           {/* USERS LIST */}
-
           <View className="flex-1 bg-surface">
             {isCreatingChat || isLoading ? (
               <View className="flex-1 items-center justify-center">
@@ -96,7 +96,12 @@ const NewChatScreen = () => {
                 <Text className="text-muted-foreground text-xs mb-3">USERS</Text>
                 {users.map((user) => (
                   // <Text key={user._id} className="text-white">{user.name}</Text>
-                  <UserItem key={user._id} user={user} isOnline={true} onPress={() => handleUserSelect(user)} />
+                  <UserItem
+                    key={user._id}
+                    user={user}
+                    isOnline={onlineUsers.has(user._id)}
+                    onPress={() => handleUserSelect(user)}
+                  />
                 ))}
               </ScrollView>
             )}
