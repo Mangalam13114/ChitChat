@@ -29,7 +29,7 @@ function useUserSync() {
       syncUser();
     }
   }, [isSignedIn, syncUser, isPending, isSuccess]);
-  
+
   return { isSynced: isSuccess, isSyncing: isPending };
 }
 
