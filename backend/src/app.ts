@@ -6,12 +6,28 @@ import chatRoutes from "./routes/chatRoutes";
 import messageRoutes from "./routes/messageRoutes";
 import userRoutes from "./routes/userRoutes";
 import { errorHandler } from "./middleware/errorHandler";
+import cors from "cors";
 
 const app = express();
+
+const allowedOrigins = [
+  "http://localhost:8081", // expo mobile
+  "http://localhost:5173", // vite web devs
+  process.env.FRONTEND_URL!, // production
+].filter(Boolean);
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true, // allow credentials from client (cookies, authorization headers, etc.)
+  }),
+);
 
 app.use(express.json()); // parses incoming JSON request bodies and make them available as req.body in your route handlers
 
 app.use(clerkMiddleware());
+
+
 app.get("/health", (_req, res) => {
   res.json({ status: "OK", message: " server is running" });
 });
